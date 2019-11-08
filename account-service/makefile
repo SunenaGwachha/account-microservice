@@ -13,6 +13,6 @@ scale:
 	kubectl scale deployment accounts --replicas=3 
 
 connect-db:
-	kubectl exec -it some-mysql -- mysql -uroot -pexample-password 
+	kubectl exec -it account-db-mysql -- mysql -uroot -proot 
 
 make-all: make-jar dockerize scale
