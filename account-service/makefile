@@ -4,15 +4,15 @@ make-jar:
     
 
 dockerize:
-	mvn com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/$$GOOGLE_CLOUD_PROJECT/docker-name11:v1
-	gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a
-	kubectl run docker-name11 --image=gcr.io/$$GOOGLE_CLOUD_PROJECT/docker-name11:v1 --port=9090
-	kubectl expose deployment docker-name11 --type=LoadBalancer 
+	mvn com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/$$GOOGLE_CLOUD_PROJECT/accounts:v1
+	gcloud container clusters get-credentials ea-cluster-1 --zone us-central1-a
+	kubectl run accounts --image=gcr.io/$$GOOGLE_CLOUD_PROJECT/accounts:v1 --port=9090
+	kubectl expose deployment accounts --type=LoadBalancer 
 
 scale:
-	kubectl scale deployment docker-name11 --replicas=3 
+	kubectl scale deployment accounts --replicas=3 
 
 connect-db:
-	kubectl exec -it some-mysql -- mysql -uroot -pexample-password 
+	kubectl exec -it account-db-mysql -- mysql -uroot -proot 
 
 make-all: make-jar dockerize scale
